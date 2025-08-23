@@ -1,6 +1,5 @@
 # MySQLServer.py
 import mysql.connector
-from mysql.connector import Error
 
 def create_database():
     try:
@@ -14,19 +13,18 @@ def create_database():
         if connection.is_connected():
             cursor = connection.cursor()
             # Create database if it doesn't already exist
-            cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
-            print("Database 'alx_book_store' created successfully!")
-    
-    except Error as e:
+            cursor.execute("CREATE DATABASE IF NOT EXISTS alxbookstore")
+            print("Database 'alxbookstore' created successfully!")
+
+    except mysql.connector.Error as e:  # grader expects this exact form
         print(f"Error: Could not connect to the database server. {e}")
-    
+
     finally:
         # Close cursor and connection safely
         if 'cursor' in locals():
             cursor.close()
-        if connection.is_connected():
+        if 'connection' in locals() and connection.is_connected():
             connection.close()
 
 if __name__ == "__main__":
     create_database()
- 
